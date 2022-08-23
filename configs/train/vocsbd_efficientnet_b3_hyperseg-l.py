@@ -14,7 +14,7 @@ from hyperseg.train import main
 if __name__ == '__main__':
     project_dir = os.path.dirname(inspect.getabsfile(main))
     exp_name = os.path.splitext(os.path.basename(__file__))[0]
-    exp_dir = os.path.join('checkpoints/vocsbd', exp_name)
+    exp_dir = os.path.join('/content/gdrive/MyDrive/ColabData/hyperseg-checkpoints/vocsbd', exp_name)
     data_dir = 'data/vocsbd'
     train_dataset = partial(VOCSBDDataset, data_dir, 'train_aug')
     val_dataset = partial(VOCSBDDataset, data_dir, 'val')
