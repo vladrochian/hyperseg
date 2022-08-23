@@ -24,7 +24,7 @@ if __name__ == '__main__':
     tensor_transforms = [ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])]
     epochs = 160
     train_iterations = 20_000
-    batch_size = 32
+    batch_size = 2
     workers = 16
     pretrained = True
     optimizer = partial(optim.Adam, lr=1e-4, betas=(0.5, 0.999))
