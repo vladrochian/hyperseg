@@ -29,7 +29,7 @@ if __name__ == '__main__':
     pretrained = True
     optimizer = partial(optim.Adam, lr=1e-4, betas=(0.5, 0.999))
     scheduler = partial(PolyLR, power=3., max_epoch=epochs)
-    model = partial(hyperseg_efficientnet, 'efficientnet-b3', pretrained=pretrained, levels=3,
+    model = partial(hyperseg_efficientnet, 'efficientnet-b1', pretrained=pretrained, levels=3,
                     kernel_sizes=(1, 1, 3, 3, 3, 3), expand_ratio=2, inference_hflip=True, with_out_fc=False,
                     decoder_dropout=None, weight_groups=16)
 
