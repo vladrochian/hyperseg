@@ -14,7 +14,7 @@ from hyperseg.train import main
 if __name__ == '__main__':
     project_dir = os.path.dirname(inspect.getabsfile(main))
     exp_name = os.path.splitext(os.path.basename(__file__))[0]
-    exp_dir = os.path.join('checkpoints/camvid', exp_name)
+    exp_dir = os.path.join('/content/gdrive/MyDrive/ColabData/hyperseg-checkpoints/camvid', exp_name)
     data_dir = 'data/camvid'
     train_dataset = partial(CamVidDataset, data_dir, ['train', 'val'])  # 960 x 720
     val_dataset = partial(CamVidDataset, data_dir, 'test')
@@ -22,9 +22,9 @@ if __name__ == '__main__':
     train_img_transforms = [RandomResize(scale_range=(0.5, 2.0)),
                             RandomCrop([576, 576], pad_if_needed=True, lbl_fill=255), RandomHorizontalFlip()]
     tensor_transforms = [ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])]
-    epochs = 120
+    epochs = 60
     train_iterations = 2000
-    batch_size = 16
+    batch_size = 8
     workers = 16
     pretrained = True
     optimizer = partial(optim.Adam, lr=1e-3, betas=(0.5, 0.999))

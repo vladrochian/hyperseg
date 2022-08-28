@@ -14,7 +14,7 @@ from hyperseg.train import main
 if __name__ == '__main__':
     project_dir = os.path.dirname(inspect.getabsfile(main))
     exp_name = os.path.splitext(os.path.basename(__file__))[0]
-    exp_dir = os.path.join('checkpoints/cityscapes', exp_name)
+    exp_dir = os.path.join('/content/gdrive/MyDrive/ColabData/hyperseg-checkpoints/cityscapes', exp_name)
     data_dir = 'data/cityscapes'    # Download from: https://www.cityscapes-dataset.com
     train_dataset = partial(CityscapesDataset, data_dir, 'train', 'fine', 'semantic')
     val_dataset = partial(CityscapesDataset, data_dir, 'val', 'fine', 'semantic')
@@ -23,9 +23,9 @@ if __name__ == '__main__':
                             RandomCrop([768, 768], pad_if_needed=True, lbl_fill=255), RandomHorizontalFlip(),
                             ColorJitter(0.25, 0.25, 0.25, 0.25)]
     tensor_transforms = [ToTensor(), Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])]
-    epochs = 360
-    train_iterations = 4000
-    batch_size = 16
+    epochs = 120
+    train_iterations = 2000
+    batch_size = 8
     workers = 16
     pretrained = True
     optimizer = partial(optim.Adam, lr=1e-3, betas=(0.5, 0.999))
