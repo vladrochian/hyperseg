@@ -137,8 +137,8 @@ def main(
         model = nn.DataParallel(model, gpus)
 
     # Initialize transforms
-    img_transforms = img_transforms if img_transforms is not None else []
-    tensor_transforms = tensor_transforms if tensor_transforms is not None else []
+    img_transforms = obj_factory(img_transforms) if img_transforms is not None else []
+    tensor_transforms = obj_factory(tensor_transforms) if tensor_transforms is not None else []
     test_transforms = Compose(img_transforms + tensor_transforms)
 
     # Initialize dataset
