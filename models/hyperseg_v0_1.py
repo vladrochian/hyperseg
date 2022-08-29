@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from hyperseg.models.layers.meta_sequential import MetaSequential
 from hyperseg.models.layers.meta_patch import MetaPatchConv2d, make_meta_patch_conv2d_block
+from torchvision.models import ResNet
 
 
 class HyperGen(nn.Module):
@@ -36,11 +37,11 @@ class HyperGen(nn.Module):
         self.inference_gather = inference_gather
 
         self.backbone = backbone()
-        feat_channels = [in_nc] + self.backbone.feat_channels[:-1]
+        feat_channels = [in_nc] + (self.backbone.fc[:-1] if isinstance(self.backbone, ResNet) else self.backbone.feat_channels[:-1])
         self.decoder = MultiScaleDecoder(feat_channels, 3, num_classes, kernel_sizes, level_layers,
                                          with_out_fc=with_out_fc, out_kernel_size=1, expand_ratio=expand_ratio,
                                          dropout=decoder_dropout)
-        self.weight_mapper = weight_mapper(self.backbone.feat_channels[-1], self.decoder.param_groups)
+        self.weight_mapper = weight_mapper((self.backbone.fc[-1] if isinstance(self.backbone, ResNet) else self.backbone.feat_channels[-1]), self.decoder.param_groups)
 
     @property
     def hyper_params(self):
