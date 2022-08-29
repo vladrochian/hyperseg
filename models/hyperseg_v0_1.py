@@ -424,6 +424,21 @@ def hyperseg_efficientnet(model_name, pretrained=False, levels=3, down_groups=1,
     return model
 
 
+def hyperseg_resnet(levels=3, weights_path=None, **kwargs):
+    from hyperseg.models.backbones.resnet import resnet18
+    from functools import partial
+    weight_mapper = partial(WeightMapper, levels=levels)
+    backbone = partial(resnet18)
+    model = HyperGen(backbone, weight_mapper, **kwargs)
+
+    if weights_path is not None:
+        checkpoint = torch.load(weights_path)
+        state_dict = checkpoint['state_dict']
+        model.load_state_dict(state_dict, strict=True)
+
+    return model
+
+
 def main(model='hyperseg.models.hyperseg_v0_1.hyperseg_efficientnet', res=(512,), pyramids=None,
          train=False):
     from hyperseg.utils.obj_factory import obj_factory
