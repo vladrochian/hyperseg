@@ -29,7 +29,7 @@ if __name__ == '__main__':
     pretrained = True
     optimizer = partial(optim.Adam, lr=1e-4, betas=(0.5, 0.999))
     scheduler = partial(PolyLR, power=3., max_epoch=epochs)
-    model = partial(hyperseg_resnet, pretrained=pretrained, levels=3)
+    model = partial(hyperseg_resnet, levels=3)
 
     os.chdir(project_dir)
     os.makedirs(exp_dir, exist_ok=True)
