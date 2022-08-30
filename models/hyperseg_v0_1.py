@@ -429,7 +429,7 @@ def hyperseg_resnet(levels=3, weights_path=None, **kwargs):
     from hyperseg.models.backbones.resnet import resnet18
     from functools import partial
     weight_mapper = partial(WeightMapper, levels=levels)
-    backbone = partial(resnet18)
+    backbone = partial(resnet18, pretrained=True, head=None, return_features=True)
     model = HyperGen(backbone, weight_mapper, **kwargs)
 
     if weights_path is not None:
